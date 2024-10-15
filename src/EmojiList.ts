@@ -12,10 +12,12 @@ export interface EmojiData {
 import broken from "img/broken.svg?inline";
 export const brokenImage = broken;
 
-export function getEmojiImage(codepoint: string, twemoji: boolean): string {
+export function getEmojiImage(codepoint: string, noto: boolean): string {
     const normalized = normalizeCodepoint(codepoint);
-    if(twemoji) return `https://raw.githubusercontent.com/jdecked/twemoji/master/assets/svg/${normalized}.svg`;
-    else return `./assets/emoji/15x15/${normalized}.png`;
+    if(noto) {
+        const notoFormat = normalized.replace(/-/, "_");
+        return `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/emoji_u${notoFormat}.svg`;
+    } else return `./assets/emoji/15x15/${normalized}.png`;
 }
 
 export function normalizeCodepoint(codepoint: string): string {
