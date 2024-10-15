@@ -15,8 +15,8 @@ export const brokenImage = broken;
 export function getEmojiImage(codepoint: string, noto: boolean): string {
     const normalized = normalizeCodepoint(codepoint);
     if(noto) {
-        const notoFormat = normalized.replace(/-/, "_");
-        return `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/emoji_u${notoFormat}.svg`;
+        const notoFormat = "emoji_u".concat(normalized.replace("-", "_"));
+        return `https://raw.githubusercontent.com/googlefonts/noto-emoji/main/svg/${notoFormat}.svg`;
     } else return `./assets/emoji/15x15/${normalized}.png`;
 }
 
