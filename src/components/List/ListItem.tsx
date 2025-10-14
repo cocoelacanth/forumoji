@@ -9,10 +9,15 @@ interface ListItemProps {
 
 export default function ListItem(props: ListItemProps) {
     const src = getEmojiImage(props.emoji.codepoint, !props.emoji.contributed);
+    const keywords = props.emoji.keywords
+        .map(k => k.replace(/\s/g, "_"))
+        .join(" ");
 
     return (
         <button className="list-item"
+            id={props.emoji.codepoint}
             data-name={props.emoji.name}
+            data-keywords={keywords}
             data-contributed={props.emoji.contributed}
             onClick={props.onClick(props.emoji)}
             aria-label={props.emoji.name}

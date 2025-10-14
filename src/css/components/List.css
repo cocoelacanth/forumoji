@@ -2,6 +2,10 @@ div#list {
     padding-top: 48pt;
 }
 
+div.list-category:not(:has(button:not([hidden]))) {
+    display: none;
+}
+
 div.emoji-icons {
     padding: 16pt;
     padding-top: 8pt;

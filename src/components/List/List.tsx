@@ -4,6 +4,8 @@ import ListCategory from "./ListCategory";
 import ListFilter from "./ListFilter";
 import { EmojiData, getEmojiList } from "src/EmojiList";
 
+import ListSearch from "./ListSearch";
+
 import "css/components/List.css";
 
 interface ListProps {
@@ -42,6 +44,25 @@ export default function List(props: ListProps) {
         window.scrollTo({top: y, behavior: "smooth"});
     }
 
+    function onQueryRun(query: string, unicodeRepr: string) {
+        const listItems = document.querySelectorAll("button.list-item");
+        for (let i = 0; i < listItems.length; i++) {
+            const item = listItems[i] as HTMLElement;
+            item.removeAttribute("hidden");
+            let notFound = unicodeRepr !== item.id;
+            notFound = notFound ? !item.dataset.name.toLowerCase().includes(query) : notFound;
+            for (const j of item.dataset.keywords.split(" ")) {
+                if (!notFound) break;
+                if (j.toLowerCase().replace(/_/g, " ").includes(query)) {
+                    notFound = false;
+                }
+            }
+            if (notFound) {
+                item.setAttribute("hidden", "");
+            }
+        }
+    }
+
     return (
         <div id="list">
             <ListFilter
@@ -69,6 +90,7 @@ export default function List(props: ListProps) {
                     })
                 }
             </div>
+            <ListSearch onQueryRun={onQueryRun} />
         </div>
     );
 }

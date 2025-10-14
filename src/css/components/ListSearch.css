@@ -1,0 +1,32 @@
+div#search {
+    position: fixed;
+    bottom: 20pt;
+    right: 20pt;
+
+    background-color: white;
+    filter: drop-shadow(0 2pt 8pt #00000066);
+
+    border-radius: 24pt;
+    overflow: hidden;
+
+    z-index: 4;
+
+    display: flex;
+    justify-content: center;
+}
+
+div#search input {
+    box-sizing: border-box;
+    
+    width: 200pt;
+    height: 48pt;
+    
+    padding: 16pt;
+    
+    appearance: none;
+    border: none;
+    
+    font-family: "Manrope", sans-serif;
+    font-size: 12pt;
+    background-color: white;
+}
