@@ -15,6 +15,7 @@ import activities from "img/categories/Activities.svg?url";
 import objects from "img/categories/Objects.svg?url";
 import symbols from "img/categories/Symbols.svg?url";
 import flags from "img/categories/Flags.svg?url";
+import search from "img/categories/Search.svg?url";
 
 const categoryIcons: {[category: string]: string} = {
     "Smileys & Emotion": smileysandemotion,
@@ -25,7 +26,8 @@ const categoryIcons: {[category: string]: string} = {
     "Activities": activities,
     "Objects": objects,
     "Symbols": symbols,
-    "Flags": flags
+    "Flags": flags,
+    "Search": search
 };
 
 export default function ListCategoryButton(props: ListCategoryButtonProps) {

@@ -62,12 +62,14 @@ export default function ListFilter(props: ListFilterProps) {
         <div id="filters" ref={props.barRef}
             aria-label="Filter Toolbar" role="toolbar"
             onKeyDown={tabulate}>
-            {/* <ListCategoryButton category="Search" onCategoryChange={changeCategory} selected={props.searchSelected} /> */}
+            <ListCategoryButton key="Search" category="Search"
+                onCategoryChange={changeCategory} selected={props.searchSelected}
+            />
             {
                 categories.map((category: string) => {
                     return (
                         <ListCategoryButton key={category} category={category}
-                            onCategoryChange={changeCategory} selected={category === selectedCategory ? true : false}
+                            onCategoryChange={changeCategory} selected={!props.searchSelected && category === selectedCategory}
                         />
                     );
                 })

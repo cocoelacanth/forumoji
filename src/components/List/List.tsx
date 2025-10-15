@@ -38,17 +38,24 @@ export default function List(props: ListProps) {
             return;
         }
         setSearchSelected(false);
+        onSearch("");
         const offset = categoryBarRef.current!.getBoundingClientRect().height;
         const y = categoryRefs[filter].current!.getBoundingClientRect().bottom + window.scrollY - offset;
 
         window.scrollTo({top: y, behavior: "smooth"});
     }
 
-    function onQueryRun(query: string, unicodeRepr: string) {
+    function onSearch(query: string) {
+        const unicodeRepr = Array.from(query)
+            .map(s => s.codePointAt(0))
+            .map(c => c.toString(16))
+            .map(n => (n.length > 3 ? "" : "0".repeat(4 - n.length)) + n)
+            .join("-");
         const listItems = document.querySelectorAll("button.list-item");
         for (let i = 0; i < listItems.length; i++) {
             const item = listItems[i] as HTMLElement;
             item.removeAttribute("hidden");
+            if (!searchSelected) continue;
             let notFound = unicodeRepr !== item.id;
             notFound = notFound ? !item.dataset.name.toLowerCase().includes(query) : notFound;
             for (const j of item.dataset.keywords.split(" ")) {
@@ -61,6 +68,7 @@ export default function List(props: ListProps) {
                 item.setAttribute("hidden", "");
             }
         }
+        return searchSelected ? 1 : 0;
     }
 
     return (
@@ -90,7 +98,7 @@ export default function List(props: ListProps) {
                     })
                 }
             </div>
-            <ListSearch onQueryRun={onQueryRun} />
+            <ListSearch key={onSearch("")} searchSelected={searchSelected} onSearch={onSearch} />
         </div>
     );
 }
